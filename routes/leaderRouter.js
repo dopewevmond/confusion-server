@@ -1,6 +1,5 @@
 const express = require('express');
 
-const mongoose = require('mongoose');
 const Leaders = require('../models/leaders');
 
 const leaderRouter = express.Router();

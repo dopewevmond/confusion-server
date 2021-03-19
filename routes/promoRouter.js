@@ -1,6 +1,5 @@
 const express = require('express');
 
-const mongoose = require('mongoose');
 const Promotions = require('../models/promotions');
 
 const promoRouter = express.Router();
