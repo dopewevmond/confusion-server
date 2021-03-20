@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
 var FileStore = require('session-file-store')(session);
+var passport = require('passport');
+var authenticate = require('./authenticate');
 
 const mongoose = require('mongoose');
 const url = 'mongodb://localhost:27017/conFusion';
@@ -39,28 +41,23 @@ app.use(session({
   saveUninitialized: false,
   resave: false,
   store: new FileStore()
-}))
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 function auth(req, res, next) {
-  console.log(req.session);
-  if (!req.session.user) {
-      var err = new Error('You are not authenticated!');
-      res.setHeader('WWW-Authenticate', 'Basic');
-      err.status = 401;
-      return next(err);
+  if (!req.user) {
+    var err = new Error('You are not authenticated!');
+    res.setHeader('WWW-Authenticate', 'Basic');
+    err.status = 403;
+    return next(err);
   } 
   else {
-    if (req.session.user === 'authenticated') {
-      next();
-    } 
-    else {
-      var err = new Error('You are not authenticated!');
-      err.status = 401;
-      return next(err);
-    }
+    next();
   }
   
 }
