@@ -8,8 +8,14 @@ router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/', authenticate.verifyUser, authenticate.verifyAdmin, function(req, res, next) {
+  User.find({})
+  .then((users) => {
+    res.statusCode = 200;
+    res.setHeader('Content-type', 'application/json');
+    res.json(users);
+  }, (err) => next(err))
+  .catch((error) => next(error))
 });
 
 router.post('/signup', function(req, res, next){
