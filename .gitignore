@@ -1,2 +1,5 @@
 node_modules
 sessions
+bin/*.csr
+bin/*.pem
+bin/*.key
