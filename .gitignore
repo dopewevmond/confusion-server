@@ -3,3 +3,4 @@ sessions
 bin/*.csr
 bin/*.pem
 bin/*.key
+config.js
