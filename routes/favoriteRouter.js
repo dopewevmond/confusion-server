@@ -137,6 +137,8 @@ favoriteRouter.route('/:dishId')
             favorite.save()
             .then((favorite) => {
                 Favorites.findById(favorite._id)
+                .populate('user')
+                .populate('dishes')
                 .then((favorite) => {
                     res.statusCode = 200;
                     res.setHeader('Content-type', 'application/json');
