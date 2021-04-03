@@ -6,7 +6,7 @@ const favoriteSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    favoriteDishes: [ { type: Schema.Types.ObjectId, ref: 'Dish'} ]
+    dishes: [ { type: Schema.Types.ObjectId, ref: 'Dish'} ]
 },{
     timestamps: true
 });
