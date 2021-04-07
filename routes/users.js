@@ -59,7 +59,7 @@ router.post('/login', cors.corsWithOptions, (req, res, next) => {
       res.statusCode = 401;
       res.setHeader('Content-type', 'application/json');
       res.json({ success: false, status: 'Login failed', err: info });
-    }
+    } else {
 
     //if the code executes to this point it means the user exists
     //so we'll log them in
@@ -74,7 +74,8 @@ router.post('/login', cors.corsWithOptions, (req, res, next) => {
       res.statusCode = 200;
       res.setHeader('Content-type', 'application/json');
       res.json({ success: true, token, status: 'you are successfully logged in' });
-    });   
+    });  
+    }
   })(req, res, next);
 });
 

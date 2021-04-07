@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const authenticate = require('../authenticate');
 const cors = require('./cors');
@@ -7,8 +8,7 @@ const Favorites = require('../models/favorite');
 
 const favoriteRouter = express.Router();
 
-favoriteRouter.use(express.json());
-favoriteRouter.use(express.urlencoded({extended: false}));
+favoriteRouter.use(bodyParser.json());
 
 favoriteRouter.route('/')
 .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200)})
@@ -20,7 +20,7 @@ favoriteRouter.route('/')
             //the user has no favorites so we'll return an empty array
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');    
-            res.json([]);
+            res.json({dishes: []});
         } else {
             //we populate the document and send back to the user
             Favorites.findById(favorite._id)

@@ -8,8 +8,7 @@ const Comments = require('../models/comments');
 
 const commentRouter = express.Router();
 
-commentRouter.use(express.urlencoded({ extended: false }));
-commentRouter.use(express.json());
+commentRouter.use(bodyParser.json());
 
 commentRouter.route('/')
 .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200)})
